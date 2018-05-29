@@ -72,7 +72,7 @@ img:hover{
     box-shadow: 0px 10px 100px 10px black;
 }
 .o0{
-  padding-bottom: 30vh;
+  margin-bottom: 30vh;
 }
 .o1{
   background-color: rgba(0, 0, 0, 0.1);
@@ -300,9 +300,22 @@ th{
   }
 }
 @media only screen and (max-width: 504px){
-    .intro p{
-      height:
-    }
+  .intro p{
+    height:
+  }
+}
+@media only screen and (max-width: 420px){
+  .intro{
+    font-size: 1.25em;
+    margin: 0% 3%;
+  }
+  .container{
+    font-size: 72%;
+    margin: 0% 5%;
+  }
+  .container table{
+    margin-bottom: 2%;
+  }
 }
 /*Scrollbar*/
 /* width */
