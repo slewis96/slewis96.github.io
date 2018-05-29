@@ -305,10 +305,6 @@ th{
   }
 }
 @media only screen and (max-width: 420px){
-  .intro{
-    font-size: 1.25em;
-    margin: 0% 3%;
-  }
   .container{
     font-size: 72%;
     margin: 0% 5%;
@@ -316,10 +312,23 @@ th{
   .container table{
     margin-bottom: 2%;
   }
+  .intro{
+    font-size: 1.25em;
+    margin: 0% 3%;
+  }
+  #intro h1{
+    font-size: 2em;
+  }
+  .me {
+    width: 80%;
+  }
 }
-@media only screen and (max-width: 420px){
+@media only screen and (max-width: 300px){
   .intro{
     font-size: 1.20em;
+  }
+  #intro h1{
+    font-size: 1.75em;
   }
   .container{
     font-size: 68%;
