@@ -320,10 +320,13 @@ th{
     font-size: 2em;
   }
   .me {
-    width: 80%;
+    width: 190px;
   }
 }
 @media only screen and (max-width: 300px){
+  .me {
+    width: 150px;
+  }
   .intro{
     font-size: 1.20em;
   }
