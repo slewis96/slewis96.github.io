@@ -322,6 +322,12 @@ th{
   .me {
     width: 190px;
   }
+  h2{
+    font-size: 1.75em;
+  }
+  .container u{
+    font-size: 1.25em;
+  }
 }
 @media only screen and (max-width: 300px){
   .me {
