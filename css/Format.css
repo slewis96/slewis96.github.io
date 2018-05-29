@@ -317,6 +317,14 @@ th{
     margin-bottom: 2%;
   }
 }
+@media only screen and (max-width: 420px){
+  .intro{
+    font-size: 1.20em;
+  }
+  .container{
+    font-size: 68%;
+  }
+}
 /*Scrollbar*/
 /* width */
 ::-webkit-scrollbar {
