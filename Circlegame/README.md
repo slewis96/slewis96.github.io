@@ -3,6 +3,7 @@ Click on the circle as soon as it appears miss then **gameover** don't click in 
 More successful clicks means a smaller target and a shorter time to click
 
 ## Issues:
+- [ ] To small on mobile
 - [x] Circle goes off screen
 - [x] Misclick not working
 
@@ -30,6 +31,9 @@ More successful clicks means a smaller target and a shorter time to click
     On each circle click: set gameover interval, clear on top. decrease interval for circle spawn display none then randomise pos
 
 ### Notes:
+![Image of phone notes](Notes/phonenotes.png)
+![Image of phone notes2](Notes/phonenotes2.png)<br>
+0dfbb9f... Added Daily plan to readme
 Modal instructions & settings <br>
 Main color hex: #c20000 <br>
 Color B: #0048c2 <br>
