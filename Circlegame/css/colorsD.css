@@ -1,0 +1,27 @@
+body{
+  color: white;
+  background-color: #76769E;
+}
+.background{
+  background: #1E233B;
+}
+.circle{
+  background: #f1eef2;
+}
+.innerModal{
+  color: #1E233B;
+  background: #76769E;
+}
+.slider::-webkit-slider-thumb {
+  background: #f1eef2;
+}
+.slider::-moz-range-thumb {
+  background: #f1eef2;
+}
+.button{
+  color: #1E233B;
+  background: #f1eef2;
+}
+.button:hover{
+  background-color: #a4a4a4;
+}

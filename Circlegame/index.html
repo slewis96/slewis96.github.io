@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CircleGame</title>
+  <link rel="icon" href="imgs/icon.ico">
+  <!--Styles-->
+  <link rel="stylesheet" href="css/styles.css">
+  <link id="themecss" rel="stylesheet" href="">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <!--Script-->
+  <script src="js/jquery-3.3.1.js"></script>
+  <script src="js/app.js" type="text/javascript"></script>
+</head>
+<body>
+  <!--Menu-->
+  <div id="menu">
+    <div id="score">Score: &emsp; Clicks:</div>
+    <!--Themes-->
+    <div class="dropdownwrapper">
+      <button type="button" id="themeBtn" class="button" name="button">Themes&emsp;<i class="arrow down"></i>
+      </button>
+      <div class="dropdown-content">
+        <p id="defaulttheme">Default</p>
+        <p id="bluetheme">Blue</p>
+        <p id="greentheme">Green</p>
+        <p id="purpletheme">Purple</p>
+      </div>
+    </div>
+    <div id="settings"><img src="imgs/settingsicon.png" alt="settingsmenu" width="35px" height="35px"></div>
+  </div>
+  <!--Game-->
+  <div class="background">
+    <div id="circle" class="circle"></div>
+  </div>
+  <!--Settings-->
+  <div id="settingsModal" class="modal">
+    <div class="innerModal">
+      <!--Toggle features-->
+      <p>Toggle on/off:</p>
+        <button type="button" id="timeBtn" class="button active" name="button">Timeout</button>
+        <button type="button" id="missBtn" class="button active" name="button">Miss</button>
+        <button type="button" id="sizeBtn" class="button" name="button">Fix Size</button>
+      <hr>
+      <!--Set sliders-->
+      <p>Difficulty:</p>
+        <button type="button" id="easy" class="diffBtns button" name="button">Easy</button>
+        <button type="button" id="medium" class="diffBtns button active" name="button">Medium</button>
+        <button type="button" id="hard" class="diffBtns button" name="button">Hard</button>
+      <!--Sliders-->
+      <p>Initial circle size:</p>
+        <input type="range" min="10" max="150" value="100" class="slider" id="sizeSlider"><span id='sizeValue'></span><br><br>
+      <p>Initial timeout:</p>
+        <input type="range" min="200" max="3000" value="2000" class="slider" id="timerSlider"><span id='timerValue'></span><br>
+        <button type="button" id="confirm" class="button" name="button">Confirm</button>
+    </div>
+  </div>
+</body>
+</html>
