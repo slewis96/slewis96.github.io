@@ -1,0 +1,29 @@
+body{
+  color: white;
+  background-color: #626262;
+}
+.background{
+  background: url("../imgs/duckhuntbackground.png");
+  cursor: url(../imgs/duckhuntcursor.cur), auto;
+}
+.circle{
+  background: transparent;
+  background-image: url("../imgs/duck.png");
+  background-repeat:no-repeat;
+  background-size:contain;
+}
+.innerModal{
+  background-color: #626262;
+}
+.slider::-webkit-slider-thumb {
+  background: #c20000;
+}
+.slider::-moz-range-thumb {
+  background: #c20000;
+}
+.button{
+  background: #c20000;
+}
+.button:hover{
+  background-color: #a70505;
+}

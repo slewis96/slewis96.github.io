@@ -15,18 +15,8 @@ $(document).ready(function(){
 
   //Menu
     //Themes
-  $('#defaulttheme').click(function(){
-    $('#themecss').attr('href','css/colorsA.css');
-  });
-  $('#bluetheme').click(function(){
-    $('#themecss').attr('href','css/colorsB.css');
-  });
-  $('#greentheme').click(function(){
-    $('#themecss').attr('href','css/colorsC.css');
-  });
-  $('#purpletheme').click(function(){
-    $('#themecss').attr('href','css/colorsD.css');
-  });
+  setThemeEvents();
+
     //Modals
   $('#settings').click(function(){
     $('#settingsModal').css('display', 'block');
@@ -43,6 +33,7 @@ $(document).ready(function(){
   $('.innerModal').click(function(){
     event.stopPropagation();
   });
+
   $.each($('.diffBtns'), function(){
     $(this).click(function(){
       $('.diffBtns').removeClass('active');
@@ -51,43 +42,28 @@ $(document).ready(function(){
       setTimeout(setDifficulty(sizeSlider.value, timerSlider.value), 2);
     });
   });
+
     //Setting presets
   $('#reactBtn').click(function(){
     $(this).toggleClass("active");
     $('#aimBtn').removeClass("active");
     if($(this).hasClass("active")){
       setSliders("react");
-      if($('#timeBtn').hasClass("active")){
-
-      } else { toggleTime($('#timeBtn')); }
-      if($('#missBtn').hasClass("active")){
+      if(!($('#timeBtn').hasClass("active"))){ //on
+        toggleTime($('#timeBtn'));
+      }
+      if($('#missBtn').hasClass("active")){ //off
         toggleMiss($('#missBtn'));
       } else { }
-      if($('#sizeBtn').hasClass("active")){
+      if(!($('#sizeBtn').hasClass("active"))){ //on
         toggleResize($('#sizeBtn'));
-      } else { }
-      if($('#timeoutBtn').hasClass("active")){
-
-      } else { toggleTimeout($('#timeoutBtn')); }
+      }
+      if(!($('#timeoutBtn').hasClass("active"))){ //on
+        toggleTimeout($('#timeoutBtn'));
+      }
     } else {
       //back to default
-      $('.diffBtns').each(function(){
-        if($(this).hasClass("active")){
-          setSliders($(this).attr('id'));
-        }
-      });
-      if($('#timeBtn').hasClass("active")){
-
-      } else { toggleTime($('#timeBtn')); }
-      if($('#missBtn').hasClass("active")){
-
-      } else { toggleMiss($('#missBtn')); }
-      if($('#sizeBtn').hasClass("active")){
-        toggleResize($('#sizeBtn'));
-      } else { }
-      if($('#timeoutBtn').hasClass("active")){
-        toggleTimeout($('#timeoutBtn'));
-      } else { }
+      resetSettings();
     }
   });
   $('#aimBtn').click(function(){
@@ -95,38 +71,24 @@ $(document).ready(function(){
     $('#reactBtn').removeClass("active");
     if($(this).hasClass("active")){
       setSliders("aim");
-      if($('#timeBtn').hasClass("active")){
-
-      } else { toggleTime($('#timeBtn')); }
-      if($('#missBtn').hasClass("active")){
-
-      } else { toggleMiss($('#missBtn')); }
-      if($('#sizeBtn').hasClass("active")){
+      if(!($('#timeBtn').hasClass("active"))){ //on
+        toggleTime($('#timeBtn'));
+      }
+      if(!($('#missBtn').hasClass("active"))){ //on
+        toggleMiss($('#missBtn'));
+      }
+      if($('#sizeBtn').hasClass("active")){ //off
         toggleResize($('#sizeBtn'));
-      } else { }
-      if($('#timeoutBtn').hasClass("active")){
-
-      } else { toggleTimeout($('#timeoutBtn')); }
-    } else {
-      $('.diffBtns').each(function(){
-        if($(this).hasClass("active")){
-          setSliders($(this).attr('id'));
-        }
-      });
-      if($('#timeBtn').hasClass("active")){
-
-      } else { toggleTime($('#timeBtn')); }
-      if($('#missBtn').hasClass("active")){
-
-      } else { toggleMiss($('#missBtn')); }
-      if($('#sizeBtn').hasClass("active")){
-        toggleResize($('#sizeBtn'));
-      } else { }
-      if($('#timeoutBtn').hasClass("active")){
+      }
+      if(!($('#timeoutBtn').hasClass("active"))){ //on
         toggleTimeout($('#timeoutBtn'));
-      } else { }
+      }
+    } else {
+      //back to default
+      resetSettings();
     }
   });
+
     //Toggle game attributes
       //set timeout and fade on/off
   $('#timeBtn').click(function(){
@@ -152,6 +114,7 @@ $(document).ready(function(){
   //Sliders
   var sizeSlider = document.getElementById('sizeSlider');
   var timerSlider = document.getElementById('timerSlider');
+    //display number to side of slider
   $('#sizeValue').html(sizeSlider.value);
   $('#timerValue').html(timerSlider.value);
     // Show value to the side of sliders
@@ -161,6 +124,7 @@ $(document).ready(function(){
   timerSlider.oninput = function() {
     $('#timerValue').html(timerSlider.value);
   }
+
     //Set difficulty based on slider values
   $('#confirm').click(function(){
     setDifficulty(sizeSlider.value, timerSlider.value);
@@ -182,16 +146,19 @@ var difficulty = {
   time: 2000,
   scrMult: 1
 }; // defined in setDifficulty via sliders
-var gameOverToggle = gameOver; // set to "" when timer toggled off
+var timergoToggle = gameOver; // set to "" when timer toggled off
 var fadeToggle = true; // set to false when timer toggled off
 var sizeToggle = true; // set to false when size toggled off
 var timerToggle = true; // set to false when size toggled off
+var pokeToggle; //determines whether pokemon images are swapped
 
 //FUNCTIONS
 
+//Game
   // Repositions circle randomly on click
 function dotClick(){
   clearInterval(timer);
+  var position = $('#circle').position();
   var maxwidth = $('.background').width()-200;
   var maxheight = $('.background').height()-200;
   var newPosX = (Math.floor(Math.random() * maxwidth));
@@ -204,11 +171,12 @@ function dotClick(){
     width      : difficulty.size,
     height     : difficulty.size,
   });
+  if(pokeToggle){setPokemon();}
   fadeOut();
   clicks++;
   increaseDifficulty();
   setScore(difficulty.scrMult);
-  timer = setInterval(gameOver, difficulty.time);
+  timer = setInterval(timergoToggle, difficulty.time);
 }
 
   // Sets circle to fade out in timer/600 (initally 3.33 seconds)
@@ -269,6 +237,128 @@ function gameOver(){
   difficulty.size = sizeSlider.value;
 }
 
+  //Sets Pokemon image every click
+  //dependant on pokemonToggle
+function setPokemon(){
+  var randpoke = getPokemon();
+  $('.circle').css("background-image", "url(imgs/Pokemon/pokemon"+randpoke+".png), radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.5) 0%, rgba(80, 80, 80, 0.0) )");
+}
+  //Generates random number
+function getPokemon(){
+  var rand = Math.floor(Math.random() * 200);
+  switch(true){
+    case (rand==1):
+      return 0;
+      break;
+    case (rand>1 && rand<50):
+      return 8;
+      break;
+    case (rand>50 && rand<100):
+      return 9;
+      break;
+    case (rand>100 && rand<150):
+      return 10;
+      break;
+    case (rand>150 && rand<162):
+      return 6;
+      break;
+    case (rand>162 && rand<174):
+      return 3;
+      break;
+    case (rand>174 && rand<186):
+      return 2;
+      break;
+    case (rand>186 && rand<189):
+      return 7;
+      break;
+    case (rand>189 && rand<192):
+      return 5;
+      break;
+    case (rand>192 && rand<196):
+      return 4;
+      break;
+    case (rand>196 && rand<200):
+      return 1;
+      break;
+    default:
+      return 10;
+      break;
+  }
+}
+
+
+//Events
+  //Sets themes CSS to theme based on dropdown-content buttons
+function setThemeEvents(){
+  $('.circle').css("background-image", "url('')");
+  $.each($('.dropdown-content').children(), function(){
+    var themeID = $(this).attr("id");
+    $(this).click(function(){
+      $('#themecss').attr('href','css/'+themeID+'.css');
+      $('.circle').css("background-image", "url('')");
+      pokeToggle = false;
+    });
+    if(themeID=="ducktheme"){
+      $(this).click(function(){
+        $('#themecss').attr('href','css/'+themeID+'.css');
+        $('.circle').css("background-image", "url('')");
+        $('.circle').css("background-image", "url('imgs/duck.png')");
+        pokeToggle = true;
+      });
+    }
+    if(themeID=="poketheme"){
+      $(this).click(function(){
+        $('#themecss').attr('href','css/'+themeID+'.css');
+        $('.circle').css("background-image", "url('')");
+        $('.circle').css("background-image", "url('imgs/Pokemon/pokemon8.png')");
+        pokeToggle = true;
+      });
+    }
+  });
+}
+
+  // Sets whether the game ends on miss
+  // $this : the button pressed to activate
+function toggleMiss($this){
+  $this.toggleClass("active");
+  if($('#missBtn').hasClass("active")){
+    $('.background').click(function(){
+      event.stopPropagation();
+      gameOver();
+    });
+  }
+  else{
+    $('.background').unbind();
+  }
+}
+
+  // Sets whether the game ends on timeout
+  // $this : the button pressed to activate
+function toggleTime($this){
+  $this.toggleClass("active");
+  if($('#timeBtn').hasClass("active")){
+    timergoToggle = gameOver;
+  }
+  else{
+    timergoToggle = " ";
+  }
+  fadeToggle = !fadeToggle;
+}
+
+  // Sets whether the circle resizes
+  // $this : the button pressed to activate
+function toggleResize($this){
+  $this.toggleClass("active");
+  sizeToggle = !sizeToggle;
+}
+
+  // Sets whether the timer lowers
+  // $this : the button pressed to activate
+function toggleTimeout($this){
+  $this.toggleClass("active");
+  timerToggle = !timerToggle;
+}
+
   // Sets sliders to predefined setDifficulty
   // diff : id of button pressed (easy, medium, hard)
 function setSliders(diff){
@@ -314,44 +404,22 @@ function setSliders(diff){
   }
 }
 
-  // Sets whether the game ends on miss
-  // $this : the button pressed to activate
-function toggleMiss($this){
-  $this.toggleClass("active");
-  if($('#missBtn').hasClass("active")){
-    $('.background').click(function(){
-      event.stopPropagation();
-      gameOver();
-    });
+function resetSettings(){
+  $('.diffBtns').each(function(){
+    if($(this).hasClass("active")){
+      setSliders($(this).attr('id'));
+    }
+  });
+  if(!($('#timeBtn').hasClass("active"))){ //if off turn on
+    toggleTime($('#timeBtn'));
   }
-  else{
-    $('.background').unbind();
+  if(!($('#missBtn').hasClass("active"))){ //if off turn on
+    toggleMiss($('#missBtn'));
   }
-}
-
-  // Sets whether the game ends on timeout
-  // $this : the button pressed to activate
-function toggleTime($this){
-  $this.toggleClass("active");
-  if($('#timeBtn').hasClass("active")){
-    gameOverToggle = gameOver;
+  if($('#sizeBtn').hasClass("active")){ //if on turn off
+    toggleResize($('#sizeBtn'));
   }
-  else{
-    gameOverToggle = " ";
+  if($('#timeoutBtn').hasClass("active")){ //if on turn off
+    toggleTimeout($('#timeoutBtn'));
   }
-  fadeToggle = !fadeToggle;
-}
-
-  // Sets whether the circle resizes
-  // $this : the button pressed to activate
-function toggleResize($this){
-  $this.toggleClass("active");
-  sizeToggle = !sizeToggle;
-}
-
-  // Sets whether the timer lowers
-  // $this : the button pressed to activate
-function toggleTimeout($this){
-  $this.toggleClass("active");
-  timerToggle = !timerToggle;
 }
