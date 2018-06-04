@@ -1,15 +1,21 @@
 # Circle Game
 Click on the circle as soon as it appears miss then **gameover** don't click in time then **gameover**
-More successful clicks means a smaller target and a shorter time to click
+More successful clicks means a smaller target, a shorter time to click but also an increased score
+
+~~Friday~~: ~~swap over to div and add fadeOut~~<br>
+~~Saturday~~: ~~add menu~~<br>
+~~Sunday~~: ~~add theme (BONUS: fixed mobile)~~<br>
+~~Monday-Tuesday:~~ ~~Fix mobile~~, ~~Ajax refresh on gameOver, add instructions~~<br>
+Tuesday-Thursday: Add new game mode, get presentation ready
 
 ## Issues:
-- [ ] To small on mobile
+- [x] To small on mobile
 - [x] Circle goes off screen
 - [x] Misclick not working
 
 ## Todo:
-- [ ] fix gameOver, add modal on game over to show score and clicks then reset game (ajax?)
-- [ ] Give instructions through modal then Ajax to refresh frame on gameover
+- [x] fix gameOver, add modal on game over to show score and clicks then reset game (ajax?)
+- [x] Give instructions through modal then Ajax to refresh frame on gameover
 - [x] setInterval dot change (setInterval bottom of move func, clearInterval at top) if function with interval runs gameOver
 - [x] After x amount of clicks shrink circle, set interval time smaller, change score multiplyer
 - [x] fadeOut in sync with timeout
@@ -18,11 +24,11 @@ More successful clicks means a smaller target and a shorter time to click
     - [x] Toggle fadeout
     - [x] Sliders for initial interval time and width & height
     - [x] Difficulty buttons set sliders and submit at pre defined points
-    - [ ] Modul with info on effect of menu items??
+    - [x] ~~Modul with info on effect of menu items??~~ do this in instructions
 - [ ] Toggle button for "mania" untimed, unlimited amount of circles, test accuracy (limited amount of circles)
 ### Todo extra:
-- [x] Sliders for initial interval time and size
 - [x] Pre defined themes on drop down in menu
+    - [x] Check this for color blind
 - [ ] New game mode multiple circles: <br>
     Disable sliders other than size slider and button  <br>
     Add max circles slider  <br>
@@ -33,11 +39,7 @@ More successful clicks means a smaller target and a shorter time to click
 ### Notes:
 ![Image of phone notes](Notes/phonenotes.png)
 ![Image of phone notes2](Notes/phonenotes2.png)<br>
-0dfbb9f... Added Daily plan to readme
 Modal instructions & settings <br>
 Main color hex: #c20000 <br>
-Color B: #0048c2 <br>
-Color C: #00c213 <br>
-Color D: #76769E <br>
 Font: ```<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">``` <br>
 https://fonts.google.com/?selection.family=PT+Sans

@@ -14,6 +14,34 @@
   <script src="js/app.js" type="text/javascript"></script>
 </head>
 <body>
+  <!--Intro/Instructions-->
+  <div id="introModal" class="modal">
+    <div class="innerModal">
+      <img src="imgs/icon.ico" alt="" style="width:30px; height:30px"> <h1>Circle Game!</h1>
+      <hr>
+      <h4>How to play:</h4>
+      <p>Click on the circle to begin</p>
+      <p>When the circle reappears click it as fast as you can take too long and it's <b>game over</b>
+      miss and it's <b>game over</b></p>
+      <p>More clicks means a smaller circle, less time to click but also a higher score</p>
+      <hr>
+      <h4>Settings:</h4>
+      <ul>
+        <li>Time Out:<br>
+          <sub>Turns the timer on/off</sub>
+        </li>
+        <li>Miss:<br>
+          <sub>Toggles the game ending when you miss</sub>
+        </li>
+        <li>Fix size:<br>
+          <sub>Toggles the circle decreasing in size on clicks</sub>
+        </li>
+        <li>Fix timer:<br>
+          <sub>Toggles the timer lowering on clicks</sub>
+        </li>
+      </ul>
+    </div>
+  </div>
   <!--Menu-->
   <div id="menu">
     <div id="score">Score: &emsp; Clicks:</div>
@@ -37,11 +65,19 @@
   <!--Settings-->
   <div id="settingsModal" class="modal">
     <div class="innerModal">
+      <!--Preset settings-->
+      <p>Presets:</p>
+      <button type="button" id="reactBtn" class="button" name="button">Reactions</button>
+      <button type="button" id="aimBtn" class="button" name="button">Accuracy</button>
+      <hr>
       <!--Toggle features-->
-      <p>Toggle on/off:</p>
+      <p>Game over on:</p>
         <button type="button" id="timeBtn" class="button active" name="button">Timeout</button>
         <button type="button" id="missBtn" class="button active" name="button">Miss</button>
+      <hr>
+      <p>Decrease on click</p>
         <button type="button" id="sizeBtn" class="button" name="button">Fix Size</button>
+        <button type="button" id="timeoutBtn" class="button" name="button">Fix Timer</button>
       <hr>
       <!--Set sliders-->
       <p>Difficulty:</p>
@@ -50,10 +86,41 @@
         <button type="button" id="hard" class="diffBtns button" name="button">Hard</button>
       <!--Sliders-->
       <p>Initial circle size:</p>
-        <input type="range" min="10" max="150" value="100" class="slider" id="sizeSlider"><span id='sizeValue'></span><br><br>
+        <input type="range" min="10" max="150" value="100" class="slider" id="sizeSlider" list="sizeTicks"><span id='sizeValue'></span><br><br>
+        <!--available slider options-->
+        <datalist id="sizeTicks">
+          <option>10</option>
+          <option>25</option>
+          <option>50</option>
+          <option>75</option>
+          <option>100</option>
+          <option>125</option>
+          <option>150</option>
+        </datalist>
       <p>Initial timeout:</p>
-        <input type="range" min="200" max="3000" value="2000" class="slider" id="timerSlider"><span id='timerValue'></span><br>
+        <input type="range" min="500" max="3000" value="2000" class="slider" id="timerSlider" list="timerTicks"><span id='timerValue'></span><br>
+        <!--available slider options-->
+        <datalist id="timerTicks">
+          <option>500</option>
+          <option>750</option>
+          <option>1000</option>
+          <option>1250</option>
+          <option>1500</option>
+          <option>1750</option>
+          <option>2000</option>
+          <option>2250</option>
+          <option>2500</option>
+          <option>2750</option>
+          <option>3000</option>
+        </datalist>
         <button type="button" id="confirm" class="button" name="button">Confirm</button>
+    </div>
+  </div>
+  <!--Game over screen-->
+  <div id="gameOverModal" class="modal">
+    <div class="innerModal">
+      <h1>Game Over!</h1>
+      <div id="goscore">Score: <br> Clicks:</div>
     </div>
   </div>
 </body>

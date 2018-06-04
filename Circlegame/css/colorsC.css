@@ -21,5 +21,12 @@ body{
   background: #00dc15;
 }
 .button:hover{
-  background-color: #00c213;
+  background-color: #079514;
+}
+.active{
+  text-decoration: underline;
+  border: 2px solid black;
+  box-shadow:         inset 0 0 20px black;
+  -moz-box-shadow:    inset 0 0 20px black;
+  -webkit-box-shadow: inset 0 0 20px black;
 }
