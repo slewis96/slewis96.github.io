@@ -303,7 +303,7 @@ function setThemeEvents(){
         $('#themecss').attr('href','css/'+themeID+'.css');
         $('.circle').css("background-image", "url('')");
         $('.circle').css("background-image", "url('imgs/duck.png')");
-        pokeToggle = true;
+        pokeToggle = false;
       });
     }
     if(themeID=="poketheme"){
