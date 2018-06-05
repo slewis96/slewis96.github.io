@@ -49,7 +49,7 @@ body{
   height: 92vh;
 }
 .background{
-  cursor: url(../imgs/defaultcursor.cur), auto;
+  cursor: url(../imgs/defaultcursor.ico), auto;
 }
 .circle{
   margin: 2%;

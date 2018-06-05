@@ -4,6 +4,7 @@ body{
 }
 .background{
   background: url("../imgs/duckhuntbackground.png");
+  background-size: cover;
   cursor: url(../imgs/duckhuntcursor.cur), auto;
 }
 .circle{
