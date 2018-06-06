@@ -27,7 +27,7 @@ $(document).ready(function(){
   $('#introModal').click(function(){
     $('#introModal').css('display', 'none');
   });
-  $('#gameOverModal').click(function(){
+  $('#closeGO').click(function(){
     $('#gameOverModal').css('display', 'none');
   });
   $('.innerModal').click(function(){
