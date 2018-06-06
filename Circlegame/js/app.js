@@ -149,6 +149,7 @@ $(document).ready(function(){
 var clicks = 0; // Incremented every circle click
 var score = 0; // 2/clicks added each circle click
 var highscore = 0; // replaced by highest score
+var jugglehighscore = 0; // replaced by highest remaining circles
 var misses = 0; // Amount of times missed only incremented if missBtn toggle off
 var timer; // Time available to click circle before gameOver
 var difficulty = {
@@ -289,7 +290,10 @@ function gameOverJuggle(){
   if(parseFloat($('#circle').css('opacity'))>0){
     circlesRemaining++;
   }
-  $('#goscore').html("Circles remaining: " + circlesRemaining +"<br>  Clicks: " + clicks);
+  if(circlesRemaining>jugglehighscore){
+    jugglehighscore = circlesRemaining;
+  }
+  $('#goscore').html("Circles remaining: " + circlesRemaining +"<br>  Juggle high score: " + jugglehighscore+"<br>  Clicks: " + clicks);
   $('.background').html("<div id='circle' class='circle'></div>");
   $('#circle').css({
     opacity    : '1',
