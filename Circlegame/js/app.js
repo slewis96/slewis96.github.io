@@ -258,9 +258,9 @@ function gameOver(){
   var timerSlider = document.getElementById('timerSlider');
   $('#gameOverModal').css('display', 'block');
   if(misses>1){
-    $('#goscore').html("Score: " + score +"<br>  Clicks: " + clicks +"<br>  Misses: " + misses);
+    $('#goscore').html("Score: " + score +"<br>  Clicks: " + clicks +"<br>  Misses: " + misses+"<br>  Highscore: " + highscore);
   } else {
-    $('#goscore').html("Score: " + score +"<br>  Clicks: " + clicks);
+    $('#goscore').html("Score: " + score +"<br>  Clicks: " + clicks+"<br>  Highscore: " + highscore);
   }
   $('#circle').css({
     opacity    : '1',
