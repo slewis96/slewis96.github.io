@@ -35,6 +35,7 @@ Tuesday-Thursday: Add new game mode, get presentation ready
 - [x] Pre defined themes on drop down in menu
     - [x] Check this for color blind
 - [x] New game mode multiple circles
+- [x] Highscore
 - [ ] Static/linear toggle button?????
 
 ### Notes:

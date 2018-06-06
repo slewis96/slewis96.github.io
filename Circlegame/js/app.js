@@ -29,6 +29,7 @@ $(document).ready(function(){
   });
   $('#closeGO').click(function(){
     $('#gameOverModal').css('display', 'none');
+    circlesRemaining = 0;
   });
   $('.innerModal').click(function(){
     event.stopPropagation();
@@ -38,14 +39,6 @@ $(document).ready(function(){
   $('#juggleBtn').click(function(){
     $(this).toggleClass("active");
     setJuggleSettings();
-    //set timeout gameover to display circles remaining
-    timergoToggle = gameOverJuggle;
-    //set miss gameover to display circles circlesRemaining
-    $('.background').unbind();
-    $('.background').click(function(){
-      gameOverJuggle();
-    })
-    juggleToggle=!juggleToggle;
   });
 
     //Setting presets
@@ -153,8 +146,9 @@ $(document).ready(function(){
 
           //VARIABLES
 
-var clicks = 0; // incremented every circle click
+var clicks = 0; // Incremented every circle click
 var score = 0; // 2/clicks added each circle click
+var highscore = 0; // replaced by highest score
 var misses = 0; // Amount of times missed only incremented if missBtn toggle off
 var timer; // Time available to click circle before gameOver
 var difficulty = {
@@ -167,6 +161,7 @@ var sizeToggle = true; // set to false when size toggled off
 var timerToggle = true; // set to false when size toggled off
 var pokeToggle; // Determines whether pokemon images are swapped
 var juggleToggle; // Defines whether more circles will spawn set in juggleBtn
+var circleTimer; // Interval to toggle circle add
 var circleSpawnTime = 0; // Determines if between circle spawn
 var circlesRemaining = 0; // How many circles are on the screen on gameover
 
@@ -246,8 +241,17 @@ function setScore(x){
   $('#score').html("Score: " + score +",  Clicks: " + clicks);
 }
 
+  // Set onscreen highscore
+function setHighScore(){
+  if(score>highscore){
+    highscore = score;
+    $('#highscore').html("Highscore: " + highscore);
+  }
+}
+
   //Triggered on background click or timeout
 function gameOver(){
+  setHighScore();
   clearInterval(timer);
   var sizeSlider = document.getElementById('sizeSlider');
   var timerSlider = document.getElementById('timerSlider');
@@ -274,6 +278,8 @@ function gameOver(){
 }
   //Triggered on gameOver in juggle game mode
 function gameOverJuggle(){
+  clearInterval(circleTimer);
+  setHighScore();
   clearInterval(timer);
   var sizeSlider = document.getElementById('sizeSlider');
   var timerSlider = document.getElementById('timerSlider');
@@ -302,6 +308,7 @@ function gameOverJuggle(){
   clicks = 0;
   misses = 0;
   circleSpawnTime = 0;
+  juggleToggle = true;
   setScore(score);
 }
 
@@ -357,6 +364,7 @@ function getPokemon(){
   //Adds circle on screen after 10 seconds from first dotClick
   //adds the next circle 10+10 seconds later and the next 20+10 later etc.
 function addCircle(){
+  clearInterval(circleTimer);
   var circleNum = $(".background").children().length + 1;
   $(".background").append("<div id='circle"+circleNum+"' class='circle'></div>");
   var $this;
@@ -381,7 +389,7 @@ function addCircle(){
   circleSpawnTime += 5000;
   circlesRemaining++;
   juggleToggle=!juggleToggle;
-  setTimeout(function(){juggleToggle=!juggleToggle;}, circleSpawnTime);
+  circleTimer = setInterval(function(){juggleToggle=true;}, circleSpawnTime);
 }
 
 //EVENTS
@@ -580,6 +588,11 @@ function setJuggleSettings(){
     $("#confirm").prop('disabled', false);
     $("#juggleBtn").prop('disabled', false);
     timergoToggle = gameOverJuggle;
+    $('.background').unbind();
+    $('.background').click(function(){
+      gameOverJuggle();
+    });
+    juggleToggle=true;
   } else {
     $.each($("#settingsModal button"), function(){
       $(this).prop('disabled', false);
@@ -587,6 +600,12 @@ function setJuggleSettings(){
     $("#sizeSlider").prop('disabled', false);
     $("#timerSlider").prop('disabled', false);
     timergoToggle = gameOver;
+    $('.background').unbind();
+    $('.background').click(function(){
+      gameOver();
+    });
+    clearInterval(circleTimer);
+    juggleToggle=false;
     resetSettings();
   }
 }
