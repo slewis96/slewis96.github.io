@@ -9,14 +9,15 @@ More successful clicks means a smaller target, a shorter time to click but also 
 Tuesday-Thursday: Add new game mode, get presentation ready
 
 ## Issues:
+- [x] No score for Juggle mode
 - [x] To small on mobile
 - [x] Circle goes off screen
 - [x] Misclick not working
 
 ## Todo:
+- [x] Show misses when miss gameover not on
 - [x] Clean up code
 - [x] Add more themes, duckhunt, pokemon
-- [ ] static/linear toggle button?????
 - [x] fix gameOver, add modal on game over to show score and clicks then reset game (ajax?)
 - [x] Give instructions through modal then Ajax to refresh frame on gameover
 - [x] setInterval dot change (setInterval bottom of move func, clearInterval at top) if function with interval runs gameOver
@@ -28,16 +29,12 @@ Tuesday-Thursday: Add new game mode, get presentation ready
     - [x] Sliders for initial interval time and width & height
     - [x] Difficulty buttons set sliders and submit at pre defined points
     - [x] ~~Modul with info on effect of menu items??~~ do this in instructions
-- [ ] Toggle button for "mania" untimed, unlimited amount of circles, test accuracy (limited amount of circles)
+- [x] Toggle button for ~~"mania"~~ "Juggle" keep as many bricks on the screen as possible
 ### Todo extra:
 - [x] Pre defined themes on drop down in menu
     - [x] Check this for color blind
-- [ ] New game mode multiple circles: <br>
-    Disable sliders other than size slider and button  <br>
-    Add max circles slider  <br>
-    First click: set var to true while var is true and i under maxCircle value : set interval to  find first circle with display none and  set random pos and set display to block
-    (increment i on each loop decrement on each click)<br>
-    On each circle click: set gameover interval, clear on top. decrease interval for circle spawn display none then randomise pos
+- [x] New game mode multiple circles
+- [ ] Static/linear toggle button?????
 
 ### Notes:
 ![Image of phone notes](Notes/phonenotes.png)

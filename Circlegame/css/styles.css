@@ -23,9 +23,13 @@ body{
 }
 #introModal h4{
   text-align: left;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 #introModal p{
   letter-spacing: normal;
+  margin: 0;
+  margin-bottom: 8px;
 }
 #introModal ul{
   letter-spacing: normal;
@@ -167,13 +171,17 @@ i {
   width: 450px;
   text-align: center;
 }
+#settingsModal p{
+  margin: 0;
+  margin-bottom: 10px;
+}
 #gameOverModal{
   padding-top: 150px;
 }
   /*Slider*/
 .slider {
   -webkit-appearance: none;
-  width: 60%;
+  width: 30%;
   height: 15px;
   border-radius: 5px;
   background: #d3d3d3;
@@ -184,6 +192,9 @@ i {
 }
 .slider:hover {
   opacity: 1;
+}
+.slider:disabled{
+  opacity: 0.2;
 }
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -204,10 +215,10 @@ i {
   /*Buttons*/
 .button{
   width: 125px;
+  height: 40px;
   background-color: #c20000;
   border: none;
   color: white;
-  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   font-family: inherit;
@@ -216,6 +227,12 @@ i {
   display: inline-block;
   margin: 4px 2px 0px 2px;
   cursor: pointer;
+}
+.button:disabled{
+  background-color: #626262;
+}
+.button:disabled:hover{
+  background-color: #626262;
 }
 .button:hover{
   background-color: #a70505;
@@ -256,6 +273,9 @@ i {
   }
   #timerValue{
     font-size: 10px;
+  }
+  #introModal {
+    padding-top: 25px;
   }
   #introModal ul{
     font-size: 14px;

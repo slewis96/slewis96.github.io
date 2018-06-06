@@ -1,15 +1,15 @@
 
-//INITIALISE
+          //INITIALISE
 
 $(document).ready(function(){
   $('#introModal').css('display', 'block');
   //Game
   $('#circle').on('click', function(){
     event.stopPropagation();
-    dotClick();
+    var $this = $(this);
+    dotClick($this);
   })
   $('.background').click(function(){
-    event.stopPropagation();
     gameOver();
   })
 
@@ -34,13 +34,18 @@ $(document).ready(function(){
     event.stopPropagation();
   });
 
-  $.each($('.diffBtns'), function(){
-    $(this).click(function(){
-      $('.diffBtns').removeClass('active');
-      $(this).addClass('active');
-      setSliders($(this).attr('id'));
-      setTimeout(setDifficulty(sizeSlider.value, timerSlider.value), 2);
-    });
+    //Game mode
+  $('#juggleBtn').click(function(){
+    $(this).toggleClass("active");
+    setJuggleSettings();
+    //set timeout gameover to display circles remaining
+    timergoToggle = gameOverJuggle;
+    //set miss gameover to display circles circlesRemaining
+    $('.background').unbind();
+    $('.background').click(function(){
+      gameOverJuggle();
+    })
+    juggleToggle=!juggleToggle;
   });
 
     //Setting presets
@@ -111,6 +116,16 @@ $(document).ready(function(){
     toggleTimeout($this);
   });
 
+  //Difficulty buttons
+  $.each($('.diffBtns'), function(){
+    $(this).click(function(){
+      $('.diffBtns').removeClass('active');
+      $(this).addClass('active');
+      setSliders($(this).attr('id'));
+      setTimeout(setDifficulty(sizeSlider.value, timerSlider.value), 2);
+    });
+  });
+
   //Sliders
   var sizeSlider = document.getElementById('sizeSlider');
   var timerSlider = document.getElementById('timerSlider');
@@ -136,34 +151,37 @@ $(document).ready(function(){
   });
 });
 
-//VARIABLES
+          //VARIABLES
 
 var clicks = 0; // incremented every circle click
 var score = 0; // 2/clicks added each circle click
-var timer; // time available to click circle before gameOver
+var misses = 0; // Amount of times missed only incremented if missBtn toggle off
+var timer; // Time available to click circle before gameOver
 var difficulty = {
   size: 100,
-  time: 2000,
-  scrMult: 1
+  time: 2000
 }; // defined in setDifficulty via sliders
 var timergoToggle = gameOver; // set to "" when timer toggled off
 var fadeToggle = true; // set to false when timer toggled off
 var sizeToggle = true; // set to false when size toggled off
 var timerToggle = true; // set to false when size toggled off
-var pokeToggle; //determines whether pokemon images are swapped
+var pokeToggle; // Determines whether pokemon images are swapped
+var juggleToggle; // Defines whether more circles will spawn set in juggleBtn
+var circleSpawnTime = 0; // Determines if between circle spawn
+var circlesRemaining = 0; // How many circles are on the screen on gameover
 
-//FUNCTIONS
+          //FUNCTIONS
 
-//Game
+//GAME
   // Repositions circle randomly on click
-function dotClick(){
+function dotClick($this){
   clearInterval(timer);
-  var position = $('#circle').position();
+  var position = $this.position();
   var maxwidth = $('.background').width()-200;
   var maxheight = $('.background').height()-200;
   var newPosX = (Math.floor(Math.random() * maxwidth));
   var newPosY = (Math.floor(Math.random() * maxheight));
-  $('#circle').css({
+  $this.css({
     transition : "opacity 0s",
     opacity    : '1',
     left       : newPosX,
@@ -171,22 +189,35 @@ function dotClick(){
     width      : difficulty.size,
     height     : difficulty.size,
   });
-  if(pokeToggle){setPokemon();}
-  fadeOut();
+  if(pokeToggle){setPokemon($this);}
+  if(juggleToggle){addCircle()}
+  if(fadeToggle){fadeOut($this);}
   clicks++;
   increaseDifficulty();
-  setScore(difficulty.scrMult);
+  setScore(Math.floor(clicks/2));
   timer = setInterval(timergoToggle, difficulty.time);
 }
 
   // Sets circle to fade out in timer/600 (initally 3.33 seconds)
-function fadeOut(){
-  if(fadeToggle){
-    var transtime = 'opacity '+(difficulty.time/600)+'s';
-    $('#circle').css({
-      transition : transtime,
-      opacity    : 0
-    });
+function fadeOut($this){
+  var transtime = 'opacity '+(difficulty.time/600)+'s';
+  $this.css({
+    transition : transtime,
+    opacity    : 0,
+  });
+  //detect when circle is opacity 0 then removes it from screen and does circlesRemaining--
+  if(juggleToggle){
+    var opacity = setInterval(
+      function(){
+        var currentOp = parseFloat($this.css('opacity'));
+        if(currentOp == 0){
+          console.log("gone");
+          clearInterval(opacity);
+          circlesRemaining--;
+          $this.css('display', "none");
+        }
+      }, 100
+    );
   }
 }
 
@@ -199,7 +230,6 @@ function increaseDifficulty(){
   if(timerToggle){
     difficulty.time = difficulty.time-20;
   }
-  difficulty.scrMult = Math.floor(clicks/2);
 }
 
   // Ran on confirm button to set slider values
@@ -210,19 +240,23 @@ function setDifficulty(size, time){
 }
 
   // Set onscreen score and score var
-  // x : difficulty.scrMult
+  // x : Math.floor(clicks/2)
 function setScore(x){
   score += x;
   $('#score').html("Score: " + score +",  Clicks: " + clicks);
 }
 
-  //Triggered on timeout or background click
+  //Triggered on background click or timeout
 function gameOver(){
   clearInterval(timer);
   var sizeSlider = document.getElementById('sizeSlider');
   var timerSlider = document.getElementById('timerSlider');
   $('#gameOverModal').css('display', 'block');
-  $('#goscore').html("Score: " + score +"<br>  Clicks: " + clicks);
+  if(misses>1){
+    $('#goscore').html("Score: " + score +"<br>  Clicks: " + clicks +"<br>  Misses: " + misses);
+  } else {
+    $('#goscore').html("Score: " + score +"<br>  Clicks: " + clicks);
+  }
   $('#circle').css({
     opacity    : '1',
     left       : 0,
@@ -232,16 +266,50 @@ function gameOver(){
   });
   score = 0;
   clicks = 0;
-  setScore(0);
+  misses = 0;
+  circleSpawnTime = 0;
+  setScore(score);
   difficulty.time = timerSlider.value;
   difficulty.size = sizeSlider.value;
+}
+  //Triggered on gameOver in juggle game mode
+function gameOverJuggle(){
+  clearInterval(timer);
+  var sizeSlider = document.getElementById('sizeSlider');
+  var timerSlider = document.getElementById('timerSlider');
+  $('#gameOverModal').css('display', 'block');
+  difficulty.time = timerSlider.value;
+  difficulty.size = sizeSlider.value;
+  if(parseFloat($('#circle').css('opacity'))>0){
+    circlesRemaining++;
+  }
+  $('#goscore').html("Circles remaining: " + circlesRemaining +"<br>  Clicks: " + clicks);
+  $('.background').html("<div id='circle' class='circle'></div>");
+  $('#circle').css({
+    opacity    : '1',
+    left       : 0,
+    top        : 0,
+    width      : sizeSlider.value,
+    height     : sizeSlider.value,
+  });
+  $('#circle').on('click', function(){
+    event.stopPropagation();
+    var $this = $(this);
+    dotClick($this);
+  });
+  circlesRemaining = 0;
+  score = 0;
+  clicks = 0;
+  misses = 0;
+  circleSpawnTime = 0;
+  setScore(score);
 }
 
   //Sets Pokemon image every click
   //dependant on pokemonToggle
-function setPokemon(){
+function setPokemon($this){
   var randpoke = getPokemon();
-  $('.circle').css("background-image", "url(imgs/Pokemon/pokemon"+randpoke+".png), radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.5) 0%, rgba(80, 80, 80, 0.0) )");
+  $this.css("background-image", "url(imgs/Pokemon/pokemon"+randpoke+".png), radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.5) 0%, rgba(80, 80, 80, 0.0) )");
 }
   //Generates random number
 function getPokemon(){
@@ -286,8 +354,37 @@ function getPokemon(){
   }
 }
 
+  //Adds circle on screen after 10 seconds from first dotClick
+  //adds the next circle 10+10 seconds later and the next 20+10 later etc.
+function addCircle(){
+  var circleNum = $(".background").children().length + 1;
+  $(".background").append("<div id='circle"+circleNum+"' class='circle'></div>");
+  var $this;
+  $('#circle'+circleNum).on('click', function(){
+    event.stopPropagation();
+    $this = $(this);
+    dotClick($this);
+  });
+  var maxwidth = $('.background').width()-200;
+  var maxheight = $('.background').height()-200;
+  var newPosX = (Math.floor(Math.random() * maxwidth));
+  var newPosY = (Math.floor(Math.random() * maxheight));
+  $('#circle'+circleNum).css({
+    transition : "opacity 0s",
+    opacity    : '1',
+    left       : newPosX,
+    top        : newPosY,
+    width      : difficulty.size,
+    height     : difficulty.size,
+  });
+  fadeOut($('#circle'+circleNum));
+  circleSpawnTime += 5000;
+  circlesRemaining++;
+  juggleToggle=!juggleToggle;
+  setTimeout(function(){juggleToggle=!juggleToggle;}, circleSpawnTime);
+}
 
-//Events
+//EVENTS
   //Sets themes CSS to theme based on dropdown-content buttons
 function setThemeEvents(){
   $('.circle').css("background-image", "url('')");
@@ -323,12 +420,14 @@ function toggleMiss($this){
   $this.toggleClass("active");
   if($('#missBtn').hasClass("active")){
     $('.background').click(function(){
-      event.stopPropagation();
       gameOver();
     });
   }
   else{
     $('.background').unbind();
+    $('.background').click(function(){
+      misses++;
+    });
   }
 }
 
@@ -370,40 +469,82 @@ function setSliders(diff){
       timerSlider.value = 3000;
       $('#sizeValue').html(sizeSlider.value);
       $('#timerValue').html(timerSlider.value);
+      $('#circle').css({
+        height: sizeSlider.value,
+        width: sizeSlider.value,
+      })
+      setDifficulty(sizeSlider.value, timerSlider.value);
       break;
     case "medium":
       sizeSlider.value = 100;
       timerSlider.value = 2000;
       $('#sizeValue').html(sizeSlider.value);
       $('#timerValue').html(timerSlider.value);
+      $('#circle').css({
+        height: sizeSlider.value,
+        width: sizeSlider.value,
+      })
+      setDifficulty(sizeSlider.value, timerSlider.value);
       break;
     case "hard":
       sizeSlider.value = 50;
       timerSlider.value = 1000;
       $('#sizeValue').html(sizeSlider.value);
       $('#timerValue').html(timerSlider.value);
+      $('#circle').css({
+        height: sizeSlider.value,
+        width: sizeSlider.value,
+      })
+      setDifficulty(sizeSlider.value, timerSlider.value);
       break;
     case "react":
       sizeSlider.value = 125;
       timerSlider.value = 750;
       $('#sizeValue').html(sizeSlider.value);
       $('#timerValue').html(timerSlider.value);
+      $('#circle').css({
+        height: sizeSlider.value,
+        width: sizeSlider.value,
+      })
+      setDifficulty(sizeSlider.value, timerSlider.value);
       break;
     case "aim":
       sizeSlider.value = 75;
       timerSlider.value = 1500;
       $('#sizeValue').html(sizeSlider.value);
       $('#timerValue').html(timerSlider.value);
+      $('#circle').css({
+        height: sizeSlider.value,
+        width: sizeSlider.value,
+      })
+      setDifficulty(sizeSlider.value, timerSlider.value);
+      break;
+    case "juggle":
+      sizeSlider.value = 125;
+      timerSlider.value = 2500;
+      $('#sizeValue').html(sizeSlider.value);
+      $('#timerValue').html(timerSlider.value);
+      $('#circle').css({
+        height: sizeSlider.value,
+        width: sizeSlider.value,
+      })
+      setDifficulty(sizeSlider.value, timerSlider.value);
       break;
     default:
       sizeSlider.value = 100;
       timerSlider.value = 2000;
       $('#sizeValue').html(sizeSlider.value);
       $('#timerValue').html(timerSlider.value);
+      $('#circle').css({
+        height: sizeSlider.value,
+        width: sizeSlider.value,
+      })
+      setDifficulty(sizeSlider.value, timerSlider.value);
       break;
   }
 }
 
+  //resets the settings to default used on presets and gamemode
 function resetSettings(){
   $('.diffBtns').each(function(){
     if($(this).hasClass("active")){
@@ -421,5 +562,31 @@ function resetSettings(){
   }
   if($('#timeoutBtn').hasClass("active")){ //if on turn off
     toggleTimeout($('#timeoutBtn'));
+  }
+}
+
+  //sets settings ready for juggle mode and resets them on off toggle
+function setJuggleSettings(){
+  $('#reactBtn').removeClass("active");
+  $('#aimBtn').removeClass("active");
+  if($("#juggleBtn").hasClass("active")){
+    resetSettings();
+    setSliders("juggle");
+    $.each($("#settingsModal button"), function(){
+      $(this).prop('disabled', true);
+    });
+    $("#sizeSlider").prop('disabled', true);
+    $("#timerSlider").prop('disabled', true);
+    $("#confirm").prop('disabled', false);
+    $("#juggleBtn").prop('disabled', false);
+    timergoToggle = gameOverJuggle;
+  } else {
+    $.each($("#settingsModal button"), function(){
+      $(this).prop('disabled', false);
+    });
+    $("#sizeSlider").prop('disabled', false);
+    $("#timerSlider").prop('disabled', false);
+    timergoToggle = gameOver;
+    resetSettings();
   }
 }
