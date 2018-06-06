@@ -15,6 +15,7 @@ Tuesday-Thursday: Add new game mode, get presentation ready
 - [x] Misclick not working
 
 ## Todo:
+- [ ] Edit larger cursor
 - [x] Show misses when miss gameover not on
 - [x] Clean up code
 - [x] Add more themes, duckhunt, pokemon

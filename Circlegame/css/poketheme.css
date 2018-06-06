@@ -12,6 +12,7 @@ body{
   background-image:url("../imgs/Pokemon/pokemon8.png"), radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.3) 0%, rgba(80, 80, 80, 0.0) );
   background-repeat:no-repeat;
   background-size: 100%;
+  border: 5px white solid;
 }
 .innerModal{
   background-color: #626262;
