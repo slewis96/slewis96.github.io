@@ -1,6 +1,41 @@
-# Circle Game
+# ![Image of phone notes](imgs/icon.ico)<span style="color:#c20000; letter-spacing: 5px;font-family: 'PT Sans', sans-serif;">Circle Game</span>
+<span style="color:#c20000;font-family: 'PT Sans', sans-serif;">Summary</span>
+---
 Click on the circle as soon as it appears miss then **gameover** don't click in time then **gameover**
-More successful clicks means a smaller target, a shorter time to click but also an increased score
+More successful clicks means a smaller target, a shorter time to click but also an increased score<br>
+
+
+<span style="color:#c20000;font-family: 'PT Sans', sans-serif;">How to play:</span>
+---
+To play the game online visit: https://slewis96.github.io/Circlegame/
+
+To play the game locally download all the files and simply open index.html in your desired browser
+
+<span style="color:#c20000;font-family: 'PT Sans', sans-serif;">Settings</span>
+---
+<ul>
+<li><b>Juggle: </b><br>
+  <sub>More than one circle, you're scored on the most circles you manage to keep on screen at once</sub>
+</li>
+<li>Time Out:<br>
+  <sub>Turns the timer on/off</sub>
+</li>
+<li>Miss:<br>
+  <sub>Toggles the game ending when you miss</sub>
+</li>
+<li>Fix size:<br>
+  <sub>Toggles the circle decreasing in size on clicks (Recommended for mobile)</sub>
+</li>
+<li>Fix timer:<br>
+  <sub>Toggles the timer lowering on clicks</sub>
+</li>
+</ul>
+<br>
+<br>
+<br>
+<br>
+___
+# <span style="color:#c20000;font-family: 'PT Sans', sans-serif;">Devlopment:</span>
 
 ~~Friday~~: ~~swap over to div and add fadeOut~~<br>
 ~~Saturday~~: ~~add menu~~<br>
@@ -15,7 +50,6 @@ Tuesday-Thursday: Add new game mode, get presentation ready
 - [x] Misclick not working
 
 ## Todo:
-- [ ] Edit larger cursor
 - [x] Show misses when miss gameover not on
 - [x] Clean up code
 - [x] Add more themes, duckhunt, pokemon
@@ -36,7 +70,8 @@ Tuesday-Thursday: Add new game mode, get presentation ready
     - [x] Check this for color blind
 - [x] New game mode multiple circles
 - [x] Highscore
-- [ ] Static/linear toggle button?????
+~~ - [ ] Edit larger cursor~~
+~~ - [ ] Static/linear toggle button?????~~
 
 ### Notes:
 ![Image of phone notes](Notes/phonenotes.png)

@@ -152,17 +152,17 @@ var score = 0; // 2/clicks added each circle click
 var highscore = 0; // replaced by highest score
 var jugglehighscore = 0; // replaced by highest remaining circles
 var misses = 0; // Amount of times missed only incremented if missBtn toggle off
-var timer; // Time available to click circle before gameOver
+var timer; // Time available to click circle before gameOver (set to Interval)
 var difficulty = {
   size: 100,
   time: 2000
 }; // defined in setDifficulty via sliders
-var timergoToggle = gameOver; // set to "" when timer toggled off
-var fadeToggle = true; // set to false when timer toggled off
-var sizeToggle = true; // set to false when size toggled off
-var timerToggle = true; // set to false when size toggled off
-var pokeToggle; // Determines whether pokemon images are swapped
-var juggleToggle; // Defines whether more circles will spawn set in juggleBtn
+var timergoToggle = gameOver; // set to "" when timer toggled off (used in dotClick)
+var fadeToggle = true; // set to false when timer toggled off (used in dotClick)
+var sizeToggle = true; // set to false when size toggled off (used in increaseDifficulty)
+var timerToggle = true; // set to false when timer toggled off (used in increaseDifficulty)
+var pokeToggle; // Determines whether pokemon images are swapped (used in dotClick)
+var juggleToggle; // Defines whether more circles will spawn set in juggleBtn (used in dotClick)
 var circleTimer; // Interval to toggle circle add
 var circleSpawnTime = 0; // Determines if between circle spawn
 var currCirclesRemaining = 1; // How many circles are on the screen on gameover
@@ -317,12 +317,6 @@ function gameOverJuggle(){
   setScore(score);
 }
 
-  //Sets Pokemon image every click
-  //dependant on pokemonToggle
-function setPokemon($this){
-  var randpoke = getPokemon();
-  $this.css("background-image", "url(imgs/Pokemon/pokemon"+randpoke+".png), radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.5) 0%, rgba(80, 80, 80, 0.0) )");
-}
   //Generates random number
 function getPokemon(){
   var rand = Math.floor(Math.random() * 200);
@@ -365,9 +359,15 @@ function getPokemon(){
       break;
   }
 }
+  //Sets Pokemon image every click
+  //dependant on pokemonToggle
+function setPokemon($this){
+  var randpoke = getPokemon();
+  $this.css("background-image", "url(imgs/Pokemon/pokemon"+randpoke+".png), radial-gradient(ellipse farthest-corner at 45px 45px, rgba(50, 50, 50, 0.5) 0%, rgba(80, 80, 80, 0.0) )");
+}
 
-  //Adds circle on screen after 10 seconds from first dotClick
-  //adds the next circle 10+10 seconds later and the next 20+10 later etc.
+  //Adds circle on screen after 5 seconds from first dotClick
+  //adds the next circle 5+5 seconds later and the next 10+5 later etc.
 function addCircle(){
   clearInterval(circleTimer);
   var circleNum = $(".background").children().length + 1;

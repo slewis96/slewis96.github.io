@@ -1,4 +1,4 @@
-/*HTML tags*/
+  /*HTML tags*/
 *{
   box-sizing: border-box;
 }
@@ -13,7 +13,8 @@ body{
   width: 96vw;
   height: 94vh;
 }
-/*Intro*/
+
+  /*Intro*/
 #introModal {
   padding-top: 50px;
 }
@@ -44,7 +45,8 @@ body{
   letter-spacing: normal;
   text-align: left;
 }
-/*Game*/
+
+  /*Game*/
 .background{
   display: inline;
   background-color: #c20000;
@@ -64,8 +66,10 @@ body{
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   background: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-/*Menu*/
+
+  /*Menu*/
 #menu{
   display:flex;
 }
@@ -80,6 +84,7 @@ body{
   line-height: 30px;
   margin-right: 20px;
 }
+
   /*Theme*/
 .dropdownwrapper{
   color: white;
@@ -153,7 +158,8 @@ i {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
-  /*Settings*/
+
+  /*Modals*/
 .modal {
   display: none;
   position: fixed;
@@ -176,17 +182,16 @@ i {
   text-align: center;
 }
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 #settingsModal p{
   margin: 0;
@@ -195,6 +200,7 @@ i {
 #gameOverModal{
   padding-top: 150px;
 }
+
   /*Slider*/
 .slider {
   -webkit-appearance: none;
@@ -229,6 +235,7 @@ i {
   background: #c20000;
   cursor: pointer;
 }
+
   /*Buttons*/
 .button{
   width: 125px;
@@ -265,13 +272,26 @@ i {
   -webkit-box-shadow: inset 0 0 10px black;
 }
 
-/*Slight mobile alterations on modal*/
+  /*Slight mobile alterations on modal*/
 @media only screen and (max-width: 600px) {
   #highscore{
     display:none;
   }
 }
 @media only screen and (max-width: 768px) {
+    /*Intro*/
+  p{
+    font-size: 12px;
+  }
+  #introModal {
+    padding-top: 25px;
+  }
+  #introModal ul{
+    font-size: 14px;
+    padding-left: 8%;
+  }
+
+    /*Menu*/
   #score{
     font-size: 11px;
     letter-spacing: 2px;
@@ -280,9 +300,30 @@ i {
     font-size:11px;
     letter-spacing: 2px;
   }
-  p{
-    font-size: 12px;
+
+    /*Modal*/
+  .modal {
+    padding-top: 10px;
   }
+  .innerModal {
+    padding: 10px;
+    width: 250px;
+  }
+  #gameOverModal .innerModal{
+    width: 300px;
+  }
+  .innerModal .button{
+    width: 100px;
+    font-size: 10px;
+  }
+  #sizeBtn{
+    width: 90px;
+  }
+  #timeoutBtn{
+    width: 90px;
+  }
+
+    /*Sliders*/
   .slider{
     height: 10px;
   }
@@ -299,29 +340,5 @@ i {
   }
   #timerValue{
     font-size: 10px;
-  }
-  #introModal {
-    padding-top: 25px;
-  }
-  #introModal ul{
-    font-size: 14px;
-    padding-left: 8%;
-  }
-  .modal {
-    padding-top: 10px;
-  }
-  .innerModal {
-    padding: 10px;
-    width: 250px;
-  }
-  .innerModal .button{
-    width: 100px;
-    font-size: 10px;
-  }
-  #sizeBtn{
-    width: 90px;
-  }
-  #timeoutBtn{
-    width: 90px;
   }
 }
