@@ -29,7 +29,8 @@ $(document).ready(function(){
   });
   $('#closeGO').click(function(){
     $('#gameOverModal').css('display', 'none');
-    circlesRemaining = 0;
+    currCirclesRemaining = 1;
+    circlesRemaining = 1;
   });
   $('.innerModal').click(function(){
     event.stopPropagation();
@@ -164,7 +165,8 @@ var pokeToggle; // Determines whether pokemon images are swapped
 var juggleToggle; // Defines whether more circles will spawn set in juggleBtn
 var circleTimer; // Interval to toggle circle add
 var circleSpawnTime = 0; // Determines if between circle spawn
-var circlesRemaining = 0; // How many circles are on the screen on gameover
+var currCirclesRemaining = 1; // How many circles are on the screen on gameover
+var circlesRemaining = 1; // How many circles are on the screen on gameover
 
           //FUNCTIONS
 
@@ -209,7 +211,7 @@ function fadeOut($this){
         if(currentOp == 0){
           console.log("gone");
           clearInterval(opacity);
-          circlesRemaining--;
+          currCirclesRemaining--;
           $this.css('display', "none");
         }
       }, 100
@@ -287,15 +289,13 @@ function gameOverJuggle(){
   $('#gameOverModal').css('display', 'block');
   difficulty.time = timerSlider.value;
   difficulty.size = sizeSlider.value;
-  if(parseFloat($('#circle').css('opacity'))>0){
-    circlesRemaining++;
-  }
   if(circlesRemaining>jugglehighscore){
     jugglehighscore = circlesRemaining;
   }
-  $('#goscore').html("Circles remaining: " + circlesRemaining +"<br>  Juggle high score: " + jugglehighscore+"<br>  Clicks: " + clicks);
+  $('#goscore').html("Most circles on screen: " + circlesRemaining +"<br>  Juggle high score: " + jugglehighscore+"<br>  Clicks: " + clicks);
   $('.background').html("<div id='circle' class='circle'></div>");
   $('#circle').css({
+    display    : 'block',
     opacity    : '1',
     left       : 0,
     top        : 0,
@@ -307,7 +307,8 @@ function gameOverJuggle(){
     var $this = $(this);
     dotClick($this);
   });
-  circlesRemaining = 0;
+  circlesRemaining = 1;
+  currCirclesRemaining = 1;
   score = 0;
   clicks = 0;
   misses = 0;
@@ -391,7 +392,10 @@ function addCircle(){
   });
   fadeOut($('#circle'+circleNum));
   circleSpawnTime += 5000;
-  circlesRemaining++;
+  currCirclesRemaining++;
+  if(currCirclesRemaining>circlesRemaining){
+    circlesRemaining = currCirclesRemaining;
+  }
   juggleToggle=!juggleToggle;
   circleTimer = setInterval(function(){juggleToggle=true;}, circleSpawnTime);
 }
@@ -587,6 +591,7 @@ function setJuggleSettings(){
     $.each($("#settingsModal button"), function(){
       $(this).prop('disabled', true);
     });
+    $("#sizeBtn").prop('disabled', false);
     $("#sizeSlider").prop('disabled', true);
     $("#timerSlider").prop('disabled', true);
     $("#confirm").prop('disabled', false);
@@ -608,8 +613,21 @@ function setJuggleSettings(){
     $('.background').click(function(){
       gameOver();
     });
+    if($('#sizeBtn').hasClass("active")){ //if on turn off
+      toggleResize($('#sizeBtn'));
+    }
     clearInterval(circleTimer);
     juggleToggle=false;
     resetSettings();
   }
 }
+
+var checkInitialCircle = setInterval(
+  function(){
+    if(parseFloat($('#circle').css('opacity'))==0){
+      console.log("gone");
+      currCirclesRemaining--;
+      $('#circle').css('display', "none");
+      clearInterval(checkInitialCircle)
+    }
+  },1000);
