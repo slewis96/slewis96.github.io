@@ -1,4 +1,5 @@
 # Portfolio-2.0
+This is my profile website I use as a hub to update with any projects or websites I complete. For a look at the kind of README I've produced for individual projects see in folder "Circlegame"
 ## TODO:
 - [ ] Fix links to work one after another
 - [x] **Scroll snap**
