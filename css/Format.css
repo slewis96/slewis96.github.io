@@ -108,7 +108,7 @@ img:hover{
   margin-left: 30px;
 }
 .flexcol{
-    flex: 50%;
+    flex: 40%;
 }
 figure {
   display: flex;
@@ -278,7 +278,10 @@ th{
   #nav-mobile{
     display: block;
   }
-  .container img{
+  #Employment img{
+    display: none;
+  }
+  #Education img{
     display: none;
   }
   .container{
@@ -301,7 +304,7 @@ th{
 }
 @media only screen and (max-width: 504px){
   .intro p{
-    height:
+    height: ;
   }
 }
 @media only screen and (max-width: 420px){
