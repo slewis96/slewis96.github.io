@@ -183,6 +183,7 @@ figcaption{
   color: white;
   background-color: transparent;
   box-shadow: none;
+  cursor: default;
 }
 #nav-main .active{
   outline: none;
