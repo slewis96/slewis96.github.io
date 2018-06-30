@@ -28,7 +28,7 @@ header{
   z-index: 3;
   height: 480px;
 }
-#Projects, #Websites{
+#Projects, #Websites, #Sparta-Projects{
   background: rgba(0, 0, 0, 0.4);
 }
 h1 {
@@ -159,7 +159,7 @@ figcaption{
 #nav-main3{
   opacity: .7;
   top: 0%;
-  height: 140px;
+  height: 180px;
   padding-top: 10px;
   border-radius: 0px 0px 15px 0px;
 }
