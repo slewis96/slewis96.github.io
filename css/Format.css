@@ -62,6 +62,12 @@ h2 hr:first-of-type{
 sub{
   font-size: 85%;
 }
+.jeList{
+  font-size: 75%;
+}
+.skillsTitle{
+  font-size: 95%;
+}
 img{
   -webkit-transition: all .5s; /* Safari */
   transition: all .5s;
