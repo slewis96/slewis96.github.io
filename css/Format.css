@@ -41,7 +41,6 @@ h1 {
 h2{
   font-size: 2em;
   margin-bottom: 2%;
-  background: ;
 }
 u{
   font-size: 1.5em;
@@ -320,7 +319,6 @@ th{
 }
 @media only screen and (max-width: 504px){
   .intro p{
-    height: ;
   }
 }
 @media only screen and (max-width: 420px){
