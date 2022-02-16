@@ -63,7 +63,7 @@ sub{
   font-size: 85%;
 }
 .jeList{
-  font-size: 75%;
+  font-size: 80%;
 }
 .skillsTitle{
   font-size: 95%;
@@ -296,13 +296,13 @@ th{
     display: block;
   }
   .container{
-    font-size: 16px;
-  }
-  .container u{
     font-size: 17px;
   }
+  .container u{
+    font-size: 18px;
+  }
   .container sub{
-    font-size: 75%;
+    font-size: 85%;
   }
   .webcont img{
     width: 250px;
@@ -319,7 +319,7 @@ th{
 }
 @media only screen and (max-width: 420px){
   .container{
-    font-size: 72%;
+    font-size: 75%;
     margin: 0% 5%;
   }
   .container table{
