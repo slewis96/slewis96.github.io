@@ -75,6 +75,24 @@ img{
 img:hover{
   transform: scale(1.05);
 }
+.skills img{
+  width:60px; 
+  margin-top: 10px;
+}
+.skills img:hover{
+  transform: none
+}
+figure {
+  position: relative;
+  text-align: center;
+}
+figure img {
+  display: block;
+}
+figcaption {
+  top: 69px;
+  position: absolute;
+}
 /*Section Overlays*/
 .overlay{
   height: 100%;
@@ -318,6 +336,9 @@ th{
   }
 }
 @media only screen and (max-width: 420px){
+  .edu li {
+    list-style-type: none;
+  }
   .container{
     font-size: 75%;
     margin: 0% 5%;
