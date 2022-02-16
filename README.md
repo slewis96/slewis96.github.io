@@ -1,5 +1,6 @@
 # Portfolio-3.0
-This is my profile website I use as a hub to update with any projects or websites I complete. For a look at the kind of README I've produced for individual projects see in folder "Circlegame"
+This is my profile website I use as interactive CV.
+
 ## TODO:
 - [x] Fix links to work one after another
 - [x] **Scroll snap**
