@@ -13,12 +13,13 @@ body {
   background-color: #131313;
   background-size: 20px 20px;
   /* background-color: #131313; */
-  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   margin: 0;
   font-size: 1.5em;
   color: white;
   overflow-x: hidden;
   scroll-snap-type: mandatory;
+  line-height: 35px;
 }
 header{
   background: linear-gradient(0deg, #131313, transparent),
@@ -76,11 +77,12 @@ img:hover{
 }
 /*Section Overlays*/
 .overlay{
-    height: 100%;
-    box-shadow: 0px 10px 100px 10px black;
+  height: 100%;
+  box-shadow: 0px 10px 100px 10px black;
 }
-.o0{
-  margin-bottom: 30vh;
+.blocker {
+  width: 100%;
+  height: 160px;
 }
 .o1{
   background-color: rgba(0, 0, 0, 0.1);
@@ -140,7 +142,7 @@ figcaption{
   z-index: 3;
   top: 20%;
   width: 100px;
-  height: 360px;
+  height: 250px;
   border-radius: 0px 15px 15px 0px;
   -webkit-transition: width 1s;
   transition: width 1s;
