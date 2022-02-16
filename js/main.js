@@ -14,11 +14,11 @@ $(function() {
 					break;
 				case 2:
 					$("button").removeClass("active");
-					$("#btnEducation").addClass("active");
+					$("#btnSkills").addClass("active");
 					break;
 				case 3:
 					$("button").removeClass("active");
-					$("#btnSkills").addClass("active");
+					$("#btnEducation").addClass("active");
 					break;
 				case 4:
 					$("button").removeClass("active");
